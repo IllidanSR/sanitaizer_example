@@ -24,4 +24,13 @@ int* alloc_memory_not_free(int size_mem) {
     return mem_part;
 }
 
+void ub_example() {
+    int *p = (int*)std::malloc(sizeof(int));
+    int *q = (int*)std::realloc(p, sizeof(int));
+    *p = 1; // UB access to a pointer that was passed to realloc
+    *q = 2;
+    if (p == q) // UB access to a pointer that was passed to realloc
+        std::cout << *p << *q << '\n';
+}
+
 #endif //SANITAIZER_EXAMPLE_LIB_A_HPP
